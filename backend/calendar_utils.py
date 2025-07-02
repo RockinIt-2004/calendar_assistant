@@ -2,6 +2,7 @@ from google.oauth2 import service_account
 from googleapiclient.discovery import build
 import datetime
 import os
+import json
 
 # Absolute path that always works
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
@@ -9,9 +10,10 @@ SERVICE_ACCOUNT_FILE = os.path.join(BASE_DIR, 'credentials', 'service_account.js
 
 SCOPES = ['https://www.googleapis.com/auth/calendar']
 
-credentials = service_account.Credentials.from_service_account_file(
-    SERVICE_ACCOUNT_FILE, scopes=SCOPES
-)
+
+
+service_account_info = json.loads(os.environ["SERVICE_ACCOUNT_JSON"])
+credentials = service_account.Credentials.from_service_account_info(service_account_info)
 
 calendar_id = "4e07bdcad0d1b34452647cafb353b9ecd24d5602d0af39035c12816737236ec6@group.calendar.google.com"
 
